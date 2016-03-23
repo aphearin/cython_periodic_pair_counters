@@ -1,0 +1,4 @@
+cpairs.c
+build/*
+*.so
+*.html
