@@ -16,7 +16,8 @@ y2 = np.random.uniform(0, Lbox, npts2)
 z2 = np.random.uniform(0, Lbox, npts2)
 
 start = time()
-result = npairs(x1, y1, z1, x2, y2, z2, rbins, Lbox, approx_cell_size = 0.025)
+result = npairs(x1, y1, z1, x2, y2, z2, rbins, Lbox, 
+	approx_cell_size = 0.1)
 
 runtime = time() - start
 print("Total runtime = %f seconds" % runtime)
