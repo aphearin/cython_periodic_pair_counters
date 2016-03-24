@@ -27,9 +27,9 @@ def npairs_no_pbc(np.ndarray[np.float64_t, ndim=1] x_icell1,
     #square the distance bins to avoid taking a square root in a tight loop
     rbins = rbins*rbins
     #loop over points in grid1's cells
-    for i in xrange(0,Ni):
+    for i in range(0,Ni):
         #loop over points in grid2's cells
-        for j in xrange(0,Nj):
+        for j in range(0,Nj):
 
             #calculate the square distance
             dx = x_icell1[i] - x_icell2[j]
