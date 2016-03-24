@@ -7,25 +7,24 @@ __all__ = ('npairs_no_pbc', )
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.nonecheck(False)
-def npairs_no_pbc(np.ndarray[np.float64_t, ndim=1] x_icell1,
-                  np.ndarray[np.float64_t, ndim=1] y_icell1,
-                  np.ndarray[np.float64_t, ndim=1] z_icell1,
-                  np.ndarray[np.float64_t, ndim=1] x_icell2,
-                  np.ndarray[np.float64_t, ndim=1] y_icell2,
-                  np.ndarray[np.float64_t, ndim=1] z_icell2,
-                  np.ndarray[np.float64_t, ndim=1] rbins):
+def npairs_no_pbc(double[:] x_icell1, double[:] y_icell1, double[:] z_icell1,
+    double[:] x_icell2, double[:] y_icell2, double[:] z_icell2,
+    double[:] rbins):
     
     #c definitions
     cdef int nbins = len(rbins)
-    cdef np.ndarray[np.int_t, ndim=1] counts = np.zeros((nbins,), dtype=np.int)
+    cdef long[:] counts = np.zeros(nbins, dtype = long)
     cdef double dsq
-    cdef int i, j, k, last_bin_to_increment
+    cdef int i, j, k
     cdef int Ni = len(x_icell1)
     cdef int Nj = len(x_icell2)
     cdef double dx, dy, dz
     
+    cdef double[:] rbins_squared = np.zeros(nbins)
     #square the distance bins to avoid taking a square root in a tight loop
-    rbins = rbins*rbins
+    for i in range(0, nbins):
+        rbins_squared[i] = rbins[i]*rbins[i]
+
     #loop over points in grid1's cells
     for i in range(0,Ni):
         #loop over points in grid2's cells
@@ -38,7 +37,7 @@ def npairs_no_pbc(np.ndarray[np.float64_t, ndim=1] x_icell1,
             dsq = dx*dx + dy*dy + dz*dz
 
             k = nbins-1
-            while dsq <= rbins[k]:
+            while dsq <= rbins_squared[k]:
                 counts[k] += 1
                 k=k-1
                 if k<0: break

@@ -25,7 +25,7 @@ print("Total runtime = %f seconds" % runtime)
 
 
 
-# pure_python_result = python_npairs(x1, y1, z1, x2, y2, z2, rbins, Lbox)
-# assert np.all(pure_python_result == result)
-# print(pure_python_result)
-# print(result)
+pure_python_result = python_npairs(x1, y1, z1, x2, y2, z2, rbins, Lbox)
+assert np.all(pure_python_result == result)
+print(pure_python_result)
+print(result)
