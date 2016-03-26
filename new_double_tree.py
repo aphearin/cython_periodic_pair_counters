@@ -1,5 +1,5 @@
 import numpy as np
-import tree_module
+from math import floor
 
 def sorted_points_and_ids(x1in, y1in, z1in, x2in, y2in, z2in, 
     approx_x1cell_size, approx_y1cell_size, approx_z1cell_size, 
@@ -97,6 +97,10 @@ def digitized_position(p, cell_size, num_divs):
     ip = np.floor(p/cell_size).astype(int)
     return np.where(ip >= num_divs, num_divs-1, ip)
 
+def cell_id_from_cell_tuple(ix, iy, iz, num_ydivs, num_zdivs):
+    """ (ix, iy, iz) ==> icell
+    """
+    return ix*(num_ydivs*num_zdivs) + iy*num_zdivs + iz
 
 
 
