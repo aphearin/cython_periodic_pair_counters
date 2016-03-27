@@ -102,6 +102,14 @@ def cell_id_from_cell_tuple(ix, iy, iz, num_ydivs, num_zdivs):
     """
     return ix*(num_ydivs*num_zdivs) + iy*num_zdivs + iz
 
+def cell_tuple_from_cell_id(cell_id, num_ydivs, num_zdivs):
+    """ icell ==> (ix, iy, iz)
+    """
+    nxny = num_ydivs*num_zdivs
+    ix = cell_id / nxny
+    iy = (cell_id - ix*nxny) / num_zdivs
+    iz = cell_id - (ix*num_ydivs*num_zdivs) - (iy*num_zdivs)
+    return ix, iy, iz
 
 
 
