@@ -60,7 +60,9 @@ def sorted_points_and_ids(x1in, y1in, z1in, x2in, y2in, z2in,
     cell2_id_indices = np.ascontiguousarray(cell2_id_indices, dtype=np.int64)
 
     return (x1out, y1out, z1out, cell1_id_indices, 
-        x2out, y2out, z2out, cell2_id_indices)
+        x1cell_size, y1cell_size, z1cell_size, 
+        x2out, y2out, z2out, cell2_id_indices, 
+        x2cell_size, y2cell_size, z2cell_size)
 
 def sample1_cell_sizes(period, search_length, approx_cell_size, 
     max_cells_per_dimension = 25):
@@ -110,6 +112,11 @@ def cell_tuple_from_cell_id(cell_id, num_ydivs, num_zdivs):
     iy = (cell_id - ix*nxny) / num_zdivs
     iz = cell_id - (ix*num_ydivs*num_zdivs) - (iy*num_zdivs)
     return ix, iy, iz
+
+def num_cells_to_cover_search_length(cell_size, search_length):
+    """ 
+    """
+    return int(np.ceil(search_length/float(cell_size)))
 
 
 
